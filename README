@@ -1,1 +1,4 @@
-Work in progress
+.NET worked example of GOOS
+using White for end-to-end UI tests
+NMock3
+and WPF for UI

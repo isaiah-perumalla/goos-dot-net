@@ -7,7 +7,7 @@ using AuctionSniper.Utils;
 namespace AuctionSniper.Xmpp {
     public class XmppChatClient {
         private readonly XmppClientConnection conn;
-        private XmppException error;
+        private XmppException error = new XmppException("unhandled error");
         private readonly ManualResetEvent hasLoggedIn = new ManualResetEvent(false);
         private Jid jid;
         public event MessageHandler OnMessageReceived ;
