@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{C8925AE5-A115-4509-8DD6-975D9C389BF8}</ProjectGuid>
+    <ProjectGuid>{53731E54-EE01-48EA-A5FA-32AAD1107460}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AuctionSniper.Integration.Tests</RootNamespace>
-    <AssemblyName>AuctionSniper.Integration.Tests</AssemblyName>
+    <RootNamespace>AuctionSniper.Xmpp</RootNamespace>
+    <AssemblyName>AuctionSniper.Xmpp</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,12 +31,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="agsXMPP, Version=1.1.0.0, Culture=neutral, PublicKeyToken=ff839b81f1debe86, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\agsXmpp\agsXMPP.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.framework">
-      <HintPath>..\..\lib\NUnit-2.5.10.11092\bin\net-2.0\nunit.framework.dll</HintPath>
+    <Reference Include="agsXMPP">
+      <HintPath>..\lib\agsXmpp\agsXMPP.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -48,16 +44,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Xmpp\XmppConnectionTests.cs" />
+    <Compile Include="XmppChatClient.cs" />
+    <Compile Include="XmppException.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\AuctionSniper.Utils\AuctionSniper.Utils.csproj">
+    <ProjectReference Include="..\AuctionSniper.Utils\AuctionSniper.Utils.csproj">
       <Project>{B3FE1494-8B04-4919-879A-F64EAB6E6214}</Project>
       <Name>AuctionSniper.Utils</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\AuctionSniper.Xmpp\AuctionSniper.Xmpp.csproj">
-      <Project>{53731E54-EE01-48EA-A5FA-32AAD1107460}</Project>
-      <Name>AuctionSniper.Xmpp</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

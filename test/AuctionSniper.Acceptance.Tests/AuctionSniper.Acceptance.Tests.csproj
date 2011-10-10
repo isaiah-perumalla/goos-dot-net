@@ -31,6 +31,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="agsXMPP">
+      <HintPath>..\..\lib\agsXmpp\agsXMPP.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>..\..\lib\NUnit-2.5.10.11092\bin\net-2.0\nunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -38,9 +44,25 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="White.Core">
+      <HintPath>..\..\lib\White_Bin_0.2.0\White.Core.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationRunner.cs" />
+    <Compile Include="AuctionSniperEndToEndTests.cs" />
+    <Compile Include="FakeAuctionServer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\AuctionSniper.Utils\AuctionSniper.Utils.csproj">
+      <Project>{B3FE1494-8B04-4919-879A-F64EAB6E6214}</Project>
+      <Name>AuctionSniper.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\AuctionSniper.Xmpp\AuctionSniper.Xmpp.csproj">
+      <Project>{53731E54-EE01-48EA-A5FA-32AAD1107460}</Project>
+      <Name>AuctionSniper.Xmpp</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
