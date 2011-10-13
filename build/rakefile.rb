@@ -3,17 +3,28 @@ require "./utils.rb"
 
 PRODUCT = "AuctionSniper"
 CLR_VERSION = 'v4.0.30319'
+MSBUILD_DIR = File.join(ENV['windir'].dup, 'Microsoft.NET', 'Framework', CLR_VERSION)
 
+NUNIT_DIR = '../lib/nunit-2.5/bin/net-2.0/'
 
-task :default => [:compile, :unit_test]
+@nunitRunner = NUnitRunner.new :compile => COMPILE_TARGET, :nunit_dir => NUNIT_DIR
+
+task :default => [:compile, :integration_test, :acceptance_test]
 
 task :compile  do
-  buildRunner = MSBuildRunner.new(CLR_VERSION)
+  buildRunner = MSBuildRunner.new(MSBUILD_DIR)
   buildRunner.compile :compilemode => COMPILE_TARGET, :solutionfile => '../auction-sniper.sln'
 end
 
+task :integration_test => [ :check_openfire_running] do
+   @nunitRunner.executeTests ['AuctionSniper.Integration.Tests']
+end  
 
-task :check_openfire_server  do
+task :acceptance_test => [ :check_openfire_running] do
+   @nunitRunner.executeTests ['AuctionSniper.Acceptance.Tests']
+end  
+
+task :check_openfire_running  do
   require 'uri'
   require 'net/http'
 

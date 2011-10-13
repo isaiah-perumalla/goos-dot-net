@@ -22,6 +22,12 @@ namespace AuctionSniper.Acceptance.Tests {
             auctionChat.OnMessageReceived += (s, msg) => singleMessageListener.ProcessMessage(msg);
         }
 
+        public string AuctionId {
+            get {
+                return _auctionItemId;
+            }
+        }
+
         public void StartSellingItem() {
             auctionChat.Login(AUCTION_PASSWORD);
         }

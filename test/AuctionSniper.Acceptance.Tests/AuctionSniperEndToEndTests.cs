@@ -3,8 +3,9 @@ using NUnit.Framework;
 namespace AuctionSniper.Acceptance.Tests {
     [TestFixture]
     public class AuctionSniperEndToEndTests {
+        private const string AUCTION_SNIPER_EXE = @"..\..\..\..\src\AuctionSniper.UI\bin\Debug\AuctionSniper.UI.exe";
         private readonly FakeAuctionServer auction = new FakeAuctionServer("item-54321");
-        private readonly ApplicationRunner _application = new ApplicationRunner(@"..\..\..\..\AuctionSniper.UI\bin\Debug\AuctionSniper.UI.exe");
+        private readonly ApplicationRunner _application = new ApplicationRunner(AUCTION_SNIPER_EXE);
 
 
         [TestFixtureSetUp]

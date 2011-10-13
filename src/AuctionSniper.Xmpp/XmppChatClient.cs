@@ -7,7 +7,7 @@ using AuctionSniper.Utils;
 namespace AuctionSniper.Xmpp {
     public class XmppChatClient {
         private readonly XmppClientConnection conn;
-        private XmppException error = new XmppException("unhandled error");
+        private XmppException error = new XmppException("timed out");
         private readonly ManualResetEvent hasLoggedIn = new ManualResetEvent(false);
         private Jid jid;
         public event MessageHandler OnMessageReceived ;
@@ -37,7 +37,7 @@ namespace AuctionSniper.Xmpp {
         public void Login(string password) {
           
             conn.Open(jid.User, password, jid.Resource);
-            if (!hasLoggedIn.WaitOne(1.Seconds())) throw error;
+            if (!hasLoggedIn.WaitOne(3.Seconds())) throw error;
         }
 
         public void SendMessageTo(Jid to, string message) {
