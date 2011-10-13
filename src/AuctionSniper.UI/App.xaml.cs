@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Windows;
+﻿using System.Windows;
+using AuctionSniper.UI.ViewModels;
 
 namespace AuctionSniper.UI
 {
@@ -12,5 +8,6 @@ namespace AuctionSniper.UI
     /// </summary>
     public partial class App : Application
     {
+        
     }
 }

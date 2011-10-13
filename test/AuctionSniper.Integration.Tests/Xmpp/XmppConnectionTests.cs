@@ -28,6 +28,21 @@ namespace AuctionSniper.Integration.Tests.Xmpp
         }
 
 
+        [Test]
+        public void LoginWithInvalidUserId()
+        {
+            try
+            {
+                var connection = new XmppChatClient(new Jid("invalid", XMPP_HOST, "auction"));
+                connection.Login("pass");
+                Assert.Fail("should have thrown xmppexection when loggin with invalid user id");
+            }
+          
+            catch(XmppException e) {Assert.That(e.Message.Contains("Auth error"));}
+
+        }
+
+
 
         [Test]
         public void SendAndReceiveChatMessages() {

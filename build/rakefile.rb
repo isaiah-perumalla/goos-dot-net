@@ -12,8 +12,12 @@ NUNIT_DIR = '../lib/nunit-2.5/bin/net-2.0/'
 task :default => [:compile, :integration_test, :acceptance_test]
 
 task :compile  do
+  include FileTest
+  
   buildRunner = MSBuildRunner.new(MSBUILD_DIR)
   buildRunner.compile :compilemode => COMPILE_TARGET, :solutionfile => '../auction-sniper.sln'
+Dir.mkdir 'output' unless exists?('output')
+
 end
 
 task :integration_test => [ :check_openfire_running] do

@@ -27,9 +27,9 @@ namespace AuctionSniper.Xmpp {
                                                        };
             connection.OnLogin += o => hasLoggedIn.Set();
             connection.OnMessage += (sender, msg) => OnMessageReceived(sender, msg);
-            connection.OnAuthError += (o, e) => error =  new XmppException(e.Value);
-            connection.OnSocketError += (o,e) => error = new XmppException(e.Message);
-            connection.OnStreamError += (o,e) => error = new XmppException(e.Value);
+            connection.OnAuthError += (o, e) => error =  new XmppException(string.Format("Auth error {0}",e.ToString()));
+            connection.OnSocketError += (o,e) => error = new XmppException(string.Format("socket error {0}",e.ToString()));
+            connection.OnStreamError += (o,e) => error = new XmppException(string.Format("stream error {0}",e.ToString()));
             return connection;
 
         }

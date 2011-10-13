@@ -6,7 +6,7 @@ class NUnitRunner
   def initialize(paths)
     @sourceDir = paths.fetch(:source, '../test')
     @nunitDir = paths.fetch(:nunit_dir, 'tools\\nunit')
-    @resultsDir = paths.fetch(:results, 'results')
+    @resultsDir = paths.fetch(:results, 'output\\results')
     @compileTarget = paths.fetch(:compilemode, 'debug')
   end
 	

@@ -11,6 +11,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using agsXMPP;
+using agsXMPP.protocol.client;
+using AuctionSniper.Xmpp;
 
 namespace AuctionSniper.UI
 {
@@ -19,9 +22,35 @@ namespace AuctionSniper.UI
     /// </summary>
     public partial class MainWindow : Window
     {
+        private string XMPP_HOST = "localhost";
+        private string RESOURCE = "resource";
+        private XmppChatClient xmppClient;
+        private string sniper_password = "sniper";
+
         public MainWindow()
         {
             InitializeComponent();
+            xmppClient = new XmppChatClient(new Jid("sniper", XMPP_HOST, RESOURCE));
+            xmppClient.OnMessageReceived += (s, msg) => {
+                                                if(msg.Type != MessageType.chat) return;
+                                                Action action = () => statusLbl.Content = "lost"; 
+                                                this.statusLbl.Dispatcher.Invoke(action);
+                                            };
+            xmppClient.Login(sniper_password);
+            
+        }
+
+        private void join_auction_cliked(object sender, RoutedEventArgs e) {
+            try
+            {
+                
+                xmppClient.SendMessageTo(new Jid(auctionIdTxt.Text, XMPP_HOST, RESOURCE), string.Empty);
+                this.statusLbl.Content = "joining";
+            }
+            catch(XmppException ex)
+            {
+                statusLbl.Content = ex.Message;
+            }
         }
     }
 }

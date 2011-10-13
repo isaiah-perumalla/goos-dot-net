@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Diagnostics;
 using NUnit.Framework;
+using NUnit.Framework.Constraints;
 using White.Core;
 using White.Core.Factory;
 using White.Core.UIItems;
 using White.Core.UIItems.Finders;
 using White.Core.UIItems.WindowItems;
 using Label = White.Core.UIItems.Label;
+using AuctionSniper.Utils;
 
 namespace AuctionSniper.Acceptance.Tests {
     public class ApplicationRunner {
@@ -30,8 +32,15 @@ namespace AuctionSniper.Acceptance.Tests {
             var auctionIdTextbox = _mainwindow.Get<TextBox>(SearchCriteria.ByAutomationId("auctionid_txtbox"));
             auctionIdTextbox.Text = auction.AuctionId;
             joinAuctionButton.Click();
-            Assert.That(Status.Text, Is.EqualTo(JOINING), "Auction status");
+            WaitUntil(()=> Status.Text, Is.EqualTo(JOINING), 3.Seconds(), "Auction status");
 
+        }
+
+        private void WaitUntil(Func<object > getValue, Constraint constraint, TimeSpan timeout, string message) {
+            var start = DateTime.Now;
+            while(DateTime.Now - start <= timeout)
+                if(constraint.Matches(getValue())) return;
+            Assert.That(getValue(), constraint, message );
         }
 
         private T Get<T>(string automationId) where T : UIItem {
@@ -45,7 +54,7 @@ namespace AuctionSniper.Acceptance.Tests {
         }
 
         public void ShowsSniperHasLostAuction() {
-            Assert.That(Status.Text, Is.EqualTo(LOST_AUCTION));
+            WaitUntil(() => Status.Text, Is.EqualTo(LOST_AUCTION), 3.Seconds(), "Auction status lost");
         }
 
         public void Dispose() {

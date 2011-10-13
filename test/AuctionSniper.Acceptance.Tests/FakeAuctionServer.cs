@@ -37,7 +37,8 @@ namespace AuctionSniper.Acceptance.Tests {
         }
 
         public void announceClosed() {
-           
+         
+            auctionChat.SendMessageTo(singleMessageListener.SniperJid, string.Empty);
         }
 
         public void Dispose() {
@@ -48,6 +49,8 @@ namespace AuctionSniper.Acceptance.Tests {
     internal class SingleMessageListener {
         private readonly BlockingCollection<Message> messages = new BlockingCollection<Message>(1);
 
+        public Jid SniperJid { get; private set; }
+
         public void ProcessMessage(Message msg) {
             messages.Add(msg);
         }
@@ -56,6 +59,7 @@ namespace AuctionSniper.Acceptance.Tests {
             Message msg;
             TimeSpan timeout = 2.Seconds();
             Assert.That(messages.TryTake(out msg, timeout), String.Format("did not receive message from sniper within {0} seconds", timeout));
+            SniperJid = msg.From;
         }
     }
 }

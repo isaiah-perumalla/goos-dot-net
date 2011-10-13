@@ -4,9 +4,9 @@
         Title="Auction Sniper"  Width="525" 
         AutomationProperties.AutomationId="mainwindow">
     <StackPanel Orientation="Vertical">
-        <Label AutomationProperties.AutomationId="auction_status"  
+        <Label AutomationProperties.AutomationId="auction_status"  Name="statusLbl"
                Content="lost"/>
-        <Button Content="join" AutomationProperties.AutomationId="join_button" />
-        <TextBox AutomationProperties.AutomationId="auctionid_txtbox" />
+        <Button Content="join" AutomationProperties.AutomationId="join_button" Click="join_auction_cliked" />
+        <TextBox Name="auctionIdTxt" AutomationProperties.AutomationId="auctionid_txtbox" />
     </StackPanel>
 </Window>
