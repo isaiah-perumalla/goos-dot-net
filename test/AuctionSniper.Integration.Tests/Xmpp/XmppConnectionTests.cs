@@ -50,12 +50,12 @@ namespace AuctionSniper.Integration.Tests.Xmpp
             var chatClient1 = new XmppChatClient(testuser);
             var messageReceivedEvent = new ManualResetEvent(false);
             var message = string.Empty;
-            chatClient1.OnMessageReceived += (sender, msg) => chatClient1.SendMessageTo(msg.From, msg.Body);
+            chatClient1.OnChatMessageReceived += (sender, msg) => chatClient1.SendMessageTo(msg.From, msg.Body);
             chatClient1.Login("pass");
 
             var auctionitem1 = new Jid("auction-item1", XMPP_HOST, "auction");
             var chatClient2 = new XmppChatClient(auctionitem1);
-            chatClient2.OnMessageReceived += (s, m) => { message = m.Body;
+            chatClient2.OnChatMessageReceived += (s, m) => { message = m.Body;
                                                      messageReceivedEvent.Set();
                                                  };
             chatClient2.Login("auction");

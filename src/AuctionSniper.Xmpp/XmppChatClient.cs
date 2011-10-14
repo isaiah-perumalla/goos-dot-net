@@ -10,11 +10,11 @@ namespace AuctionSniper.Xmpp {
         private XmppException error = new XmppException("timed out");
         private readonly ManualResetEvent hasLoggedIn = new ManualResetEvent(false);
         private Jid jid;
-        public event MessageHandler OnMessageReceived ;
+        public event MessageHandler OnChatMessageReceived ;
 
         public XmppChatClient(Jid jid) {
             conn = CreateXmppConnection(jid.Server);
-            OnMessageReceived += delegate { };
+            OnChatMessageReceived += delegate { };
             this.jid = jid;
             
         }
@@ -26,12 +26,19 @@ namespace AuctionSniper.Xmpp {
                                                            AutoResolveConnectServer = false,
                                                        };
             connection.OnLogin += o => hasLoggedIn.Set();
-            connection.OnMessage += (sender, msg) => OnMessageReceived(sender, msg);
-            connection.OnAuthError += (o, e) => error =  new XmppException(string.Format("Auth error {0}",e.ToString()));
-            connection.OnSocketError += (o,e) => error = new XmppException(string.Format("socket error {0}",e.ToString()));
-            connection.OnStreamError += (o,e) => error = new XmppException(string.Format("stream error {0}",e.ToString()));
+            connection.OnMessage += (sender, msg) => { 
+                                                        if( MessageType.chat.Equals(msg.Type)) 
+                                                            OnChatMessageReceived(sender, msg); 
+                                                      };
+            connection.OnAuthError += (o, e) => error =  ExceptionWithMsg(string.Format("Auth error {0}",e.ToString()));
+            connection.OnSocketError += (o,e) => error = ExceptionWithMsg(string.Format("socket error {0}",e.ToString()));
+            connection.OnStreamError += (o,e) => error = ExceptionWithMsg(string.Format("stream error {0}",e.ToString()));
             return connection;
 
+        }
+
+        private XmppException ExceptionWithMsg(string message) {
+            return new XmppException(message);
         }
 
         public void Login(string password) {

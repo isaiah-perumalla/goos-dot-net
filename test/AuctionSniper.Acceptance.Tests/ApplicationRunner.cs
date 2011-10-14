@@ -60,5 +60,9 @@ namespace AuctionSniper.Acceptance.Tests {
         public void Dispose() {
             applicationInstance.Dispose();
         }
+
+        public void HasShownSniperIsBidding() {
+            
+        }
     }
 }

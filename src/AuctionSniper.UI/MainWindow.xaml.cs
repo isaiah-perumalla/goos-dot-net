@@ -31,8 +31,7 @@ namespace AuctionSniper.UI
         {
             InitializeComponent();
             xmppClient = new XmppChatClient(new Jid("sniper", XMPP_HOST, RESOURCE));
-            xmppClient.OnMessageReceived += (s, msg) => {
-                                                if(msg.Type != MessageType.chat) return;
+            xmppClient.OnChatMessageReceived += (s, msg) => {
                                                 Action action = () => statusLbl.Content = "lost"; 
                                                 this.statusLbl.Dispatcher.Invoke(action);
                                             };

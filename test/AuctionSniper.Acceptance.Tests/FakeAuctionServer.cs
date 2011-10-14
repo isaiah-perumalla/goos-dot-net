@@ -19,7 +19,7 @@ namespace AuctionSniper.Acceptance.Tests {
             _auctionItemId = auctionItemId;
 
             auctionChat = new XmppChatClient(new Jid(_auctionItemId, XMPP_HOST, RESOURCE));
-            auctionChat.OnMessageReceived += (s, msg) => singleMessageListener.ProcessMessage(msg);
+            auctionChat.OnChatMessageReceived += (s, msg) => singleMessageListener.ProcessMessage(msg);
         }
 
         public string AuctionId {
@@ -43,6 +43,14 @@ namespace AuctionSniper.Acceptance.Tests {
 
         public void Dispose() {
             auctionChat.Dispose();
+        }
+
+        public void ReportPrice(decimal price, decimal increment, string bidderId) {
+            
+        }
+
+        public void HasReceivedBid(decimal price, string sniperId) {
+            
         }
     }
 
