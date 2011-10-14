@@ -22,20 +22,20 @@ namespace AuctionSniper.Acceptance.Tests {
         public void SniperJoinsAuctionUntilAuctionCloses() {
             auction.StartSellingItem();
             application.StartBiddingIn(auction);
-            auction.HasReceivedJoinRequestFrom(application.XmppID);
+            auction.HasReceivedJoinRequestFrom(ApplicationRunner.SniperXmppID);
             auction.announceClosed();
             application.ShowsSniperHasLostAuction();
         }
 
-        [Test, Explicit]
+        [Test]
         public void SniperMakeHigherBidButLoses() {
             auction.StartSellingItem();
             application.StartBiddingIn(auction);
-            auction.HasReceivedJoinRequestFrom(application.XmppID);
+            auction.HasReceivedJoinRequestFrom(ApplicationRunner.SniperXmppID);
 
             auction.ReportPrice(1000, 98, "other bidder");
             application.HasShownSniperIsBidding();
-            auction.HasReceivedBid(1098, application.XmppID);
+            auction.HasReceivedBid(1098, ApplicationRunner.SniperXmppID);
 
             auction.announceClosed();
 

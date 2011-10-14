@@ -63,10 +63,11 @@ namespace AuctionSniper.Acceptance.Tests {
             messages.Add(msg);
         }
 
-        public void ReceivesAMessageFrom(string xmppId) {
+        public void ReceivesAMessageFrom(string sniperXmppId) {
             Message msg;
             TimeSpan timeout = 2.Seconds();
             Assert.That(messages.TryTake(out msg, timeout), String.Format("did not receive message from sniper within {0} seconds", timeout));
+            Assert.That(msg.From.User, Is.EqualTo(sniperXmppId), "message was not from {0}", sniperXmppId);
             SniperJid = msg.From;
         }
     }

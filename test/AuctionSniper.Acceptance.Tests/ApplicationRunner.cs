@@ -15,6 +15,7 @@ namespace AuctionSniper.Acceptance.Tests {
         private readonly Application applicationInstance;
         private const string LOST_AUCTION = "lost";
         private Window _mainwindow;
+        public const string SniperXmppID = "sniper";
         private const string JOINING = "joining";
 
         public ApplicationRunner(string exePath) {
@@ -25,7 +26,6 @@ namespace AuctionSniper.Acceptance.Tests {
 
         }
 
-        public string XmppID { get; private set; }
 
         public void StartBiddingIn(FakeAuctionServer auction) {
             var joinAuctionButton = Get<Button>("join_button");
