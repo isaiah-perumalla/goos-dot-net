@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuctionSniper.Utils", "src\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuctionSniper.Xmpp", "src\AuctionSniper.Xmpp\AuctionSniper.Xmpp.csproj", "{53731E54-EE01-48EA-A5FA-32AAD1107460}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuctionSniper.Unit.Tests", "AuctionSniper.Unit.Tests\AuctionSniper.Unit.Tests.csproj", "{2FD0C16B-F362-47B3-BC79-0E561A8ABE23}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuctionSniper.Unit.Tests", "test\AuctionSniper.Unit.Tests\AuctionSniper.Unit.Tests.csproj", "{2FD0C16B-F362-47B3-BC79-0E561A8ABE23}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

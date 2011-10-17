@@ -9,7 +9,7 @@ NUNIT_DIR = '../lib/nunit-2.5/bin/net-2.0/'
 
 @nunitRunner = NUnitRunner.new :compile => COMPILE_TARGET, :nunit_dir => NUNIT_DIR
 
-task :default => [:compile, :integration_test, :acceptance_test]
+task :default => [:compile, :unit_test, :integration_test, :acceptance_test]
 
 task :compile  do
   include FileTest
@@ -19,6 +19,11 @@ task :compile  do
 Dir.mkdir 'output' unless exists?('output')
 
 end
+
+task :unit_test => [ :compile] do
+   @nunitRunner.executeTests ['AuctionSniper.Unit.Tests']
+end  
+
 
 task :integration_test => [ :check_openfire_running] do
    @nunitRunner.executeTests ['AuctionSniper.Integration.Tests']
