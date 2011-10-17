@@ -21,6 +21,9 @@ namespace AuctionSniper.Domain
             get { return this.amount; }
         }
 
+        public  static Money operator + (Money amt1, Money amt2) {
+            return new Money(amt1.Amount+amt1.Amount, amt1.currencyCode);
+        }
         public override string ToString() {
             return string.Format("Amount: {0}{1}", amount, currencyCode);
         }

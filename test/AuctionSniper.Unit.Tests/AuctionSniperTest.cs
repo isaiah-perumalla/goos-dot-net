@@ -28,11 +28,25 @@ namespace AuctionSniper.Unit.Tests {
         public void NotifiesAuctionLostWhenAuctionCloses() {
 
             sniperListener.Expects.One.Method(x => x.AuctionLost());
-            var auctionSniper = new Domain.AuctionSniper(sniperListener.MockObject);
+            IAuction nullAuction = null;
+            var auctionSniper = new Domain.AuctionSniper(sniperListener.MockObject, nullAuction);
             auctionSniper.AuctionClosed();
 
         }
+
+        [Test]
+        public void BidsHigherAndReportsBiddingWhenNewPriceArrives() {
+            var auction = mockery.CreateMock<IAuction>();
+            var currentPrice = 98.Gbp();
+            var increment = 20.Gbp();
+            auction.Expects.One.Method(x => x.Bid(currentPrice + increment))
+                               .With(currentPrice+increment);
+            sniperListener.Expects.One.Method(x => x.SniperIsBidding());
+            var auctionSniper = new Domain.AuctionSniper(sniperListener.MockObject, auction.MockObject);
+            auctionSniper.CurrentPrice(currentPrice, increment);
+
+        }
+
     }
 
-    
 }

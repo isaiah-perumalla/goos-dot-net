@@ -21,7 +21,7 @@ namespace AuctionSniper.UI
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window, IAuctionEventListener {
+    public partial class MainWindow : Window, ISniperListener {
         private string XMPP_HOST = "localhost";
         private string RESOURCE = "resource";
         private XmppChatClient xmppClient;
@@ -31,7 +31,7 @@ namespace AuctionSniper.UI
         {
             InitializeComponent();
             xmppClient = new XmppChatClient(new Jid("sniper", XMPP_HOST, RESOURCE));
-            var auctionMessageTranslator = new AuctionMessageTranslator(this);
+            var auctionMessageTranslator = new AuctionMessageTranslator(new Domain.AuctionSniper(this, null));
             xmppClient.OnChatMessageReceived += (s, msg) => auctionMessageTranslator.Process(msg);
             xmppClient.Login(sniper_password);
             
@@ -50,13 +50,13 @@ namespace AuctionSniper.UI
             }
         }
 
-        public void AuctionClosed() {
-
+        
+        public void AuctionLost() {
             Action action = () => statusLbl.Content = "lost";
             this.statusLbl.Dispatcher.Invoke(action);
         }
 
-        public void CurrentPrice(Money currentPrice, Money increment) {
+        public void SniperIsBidding() {
             
         }
     }

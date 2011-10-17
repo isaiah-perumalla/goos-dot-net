@@ -5,10 +5,11 @@ namespace AuctionSniper.Domain
     public class AuctionSniper : IAuctionEventListener
     {
         private readonly ISniperListener sniperListener;
+        private readonly IAuction auction;
 
-        public AuctionSniper(ISniperListener sniperListener)
-        {
+        public AuctionSniper(ISniperListener sniperListener, IAuction auction) {
             this.sniperListener = sniperListener;
+            this.auction = auction;
         }
 
         public void AuctionClosed()
@@ -18,7 +19,8 @@ namespace AuctionSniper.Domain
 
         public void CurrentPrice(Money currentPrice, Money increment)
         {
-            throw new NotImplementedException();
+            auction.Bid(currentPrice+increment);
+            sniperListener.SniperIsBidding();
         }
     }
 }

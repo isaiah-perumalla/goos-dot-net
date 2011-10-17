@@ -2,5 +2,6 @@
     public interface ISniperListener
     {
         void AuctionLost();
+        void SniperIsBidding();
     }
 }
