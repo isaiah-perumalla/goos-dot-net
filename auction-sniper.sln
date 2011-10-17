@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuctionSniper.Utils", "src\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuctionSniper.Xmpp", "src\AuctionSniper.Xmpp\AuctionSniper.Xmpp.csproj", "{53731E54-EE01-48EA-A5FA-32AAD1107460}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuctionSniper.Unit.Tests", "AuctionSniper.Unit.Tests\AuctionSniper.Unit.Tests.csproj", "{2FD0C16B-F362-47B3-BC79-0E561A8ABE23}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,16 @@ Global
 		{53731E54-EE01-48EA-A5FA-32AAD1107460}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{53731E54-EE01-48EA-A5FA-32AAD1107460}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{53731E54-EE01-48EA-A5FA-32AAD1107460}.Release|x86.ActiveCfg = Release|Any CPU
+		{2FD0C16B-F362-47B3-BC79-0E561A8ABE23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FD0C16B-F362-47B3-BC79-0E561A8ABE23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FD0C16B-F362-47B3-BC79-0E561A8ABE23}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{2FD0C16B-F362-47B3-BC79-0E561A8ABE23}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{2FD0C16B-F362-47B3-BC79-0E561A8ABE23}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2FD0C16B-F362-47B3-BC79-0E561A8ABE23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FD0C16B-F362-47B3-BC79-0E561A8ABE23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2FD0C16B-F362-47B3-BC79-0E561A8ABE23}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{2FD0C16B-F362-47B3-BC79-0E561A8ABE23}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{2FD0C16B-F362-47B3-BC79-0E561A8ABE23}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

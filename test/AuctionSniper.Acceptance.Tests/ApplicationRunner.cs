@@ -15,8 +15,9 @@ namespace AuctionSniper.Acceptance.Tests {
         private readonly Application applicationInstance;
         private const string LOST_AUCTION = "lost";
         private Window _mainwindow;
+        const string BIDDING = "bidding";
         public const string SniperXmppID = "sniper";
-        private const string JOINING = "joining";
+        const string JOINING = "joining";
 
         public ApplicationRunner(string exePath) {
             
@@ -62,7 +63,8 @@ namespace AuctionSniper.Acceptance.Tests {
         }
 
         public void HasShownSniperIsBidding() {
-            
+            WaitUntil(() => Status.Text, Is.EqualTo(BIDDING), 3.Seconds(), "Auction status lost");
+
         }
     }
 }

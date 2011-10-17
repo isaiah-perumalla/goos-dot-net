@@ -29,6 +29,7 @@ namespace AuctionSniper.Acceptance.Tests {
         }
 
         public void StartSellingItem() {
+            
             auctionChat.Login(AUCTION_PASSWORD);
         }
 
@@ -39,6 +40,7 @@ namespace AuctionSniper.Acceptance.Tests {
         public void announceClosed() {
          
             auctionChat.SendMessageTo(singleMessageListener.SniperJid, string.Empty);
+            auctionChat.Close();
         }
 
         public void Dispose() {
@@ -46,7 +48,10 @@ namespace AuctionSniper.Acceptance.Tests {
         }
 
         public void ReportPrice(decimal price, decimal increment, string bidderId) {
-            
+            var priceMsg =
+                string.Format(@"SOLVersion: 1.1; Event: Price; CurrentPrice: {0}; Increment: {1}; Bidder: {2};",
+                              price, increment, bidderId);
+            auctionChat.SendMessageTo(singleMessageListener.SniperJid, priceMsg);
         }
 
         public void HasReceivedBid(decimal price, string sniperId) {

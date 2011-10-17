@@ -50,7 +50,10 @@ namespace AuctionSniper.Xmpp {
         public void SendMessageTo(Jid to, string message) {
             conn.Send(new Message(to, this.jid, MessageType.chat, message));
         }
-
+        public void Close() {
+            conn.Close();
+            hasLoggedIn.Reset();
+        }
         public void Dispose() {
             hasLoggedIn.Dispose();
             conn.Close();
