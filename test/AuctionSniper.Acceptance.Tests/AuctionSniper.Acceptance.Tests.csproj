@@ -56,6 +56,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\src\AuctionSniper.Domain\AuctionSniper.Domain.csproj">
+      <Project>{149D367F-9376-4622-BEE2-F512753DFDB1}</Project>
+      <Name>AuctionSniper.Domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\src\AuctionSniper.Utils\AuctionSniper.Utils.csproj">
       <Project>{B3FE1494-8B04-4919-879A-F64EAB6E6214}</Project>
       <Name>AuctionSniper.Utils</Name>

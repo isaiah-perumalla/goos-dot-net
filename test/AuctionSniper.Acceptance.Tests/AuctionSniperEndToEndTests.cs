@@ -1,3 +1,4 @@
+using AuctionSniper.Domain;
 using NUnit.Framework;
 
 namespace AuctionSniper.Acceptance.Tests {
@@ -23,7 +24,7 @@ namespace AuctionSniper.Acceptance.Tests {
             auction.StartSellingItem();
             application.StartBiddingIn(auction);
             auction.HasReceivedJoinRequestFrom(ApplicationRunner.SniperXmppID);
-            auction.announceClosed();
+            auction.AnnounceClosed();
             application.ShowsSniperHasLostAuction();
         }
 
@@ -33,11 +34,11 @@ namespace AuctionSniper.Acceptance.Tests {
             application.StartBiddingIn(auction);
             auction.HasReceivedJoinRequestFrom(ApplicationRunner.SniperXmppID);
 
-            auction.ReportPrice(1000, 98, "other bidder");
+            auction.ReportPrice(1000.Gbp(), 98.Gbp(), "other bidder");
             application.HasShownSniperIsBidding();
             auction.HasReceivedBid(1098, ApplicationRunner.SniperXmppID);
 
-            auction.announceClosed();
+            auction.AnnounceClosed();
 
             application.ShowsSniperHasLostAuction();
 

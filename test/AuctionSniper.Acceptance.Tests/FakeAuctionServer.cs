@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using agsXMPP;
 using agsXMPP.protocol.client;
+using AuctionSniper.Domain;
 using AuctionSniper.Utils;
 using AuctionSniper.Xmpp;
 using NUnit.Framework;
@@ -37,7 +38,7 @@ namespace AuctionSniper.Acceptance.Tests {
             singleMessageListener.ReceivesAMessageFrom(xmppId);
         }
 
-        public void announceClosed() {
+        public void AnnounceClosed() {
          
             auctionChat.SendMessageTo(singleMessageListener.SniperJid, @"SOLVersion: 1.1; Event: CLOSE;");
             auctionChat.Close();
@@ -47,10 +48,10 @@ namespace AuctionSniper.Acceptance.Tests {
             auctionChat.Dispose();
         }
 
-        public void ReportPrice(decimal price, decimal increment, string bidderId) {
+        public void ReportPrice(Money price, Money increment, string bidderId) {
             var priceMsg =
                 string.Format(@"SOLVersion: 1.1; Event: Price; CurrentPrice: {0}; Increment: {1}; Bidder: {2};",
-                              price, increment, bidderId);
+                              price.Amount, increment.Amount, bidderId);
             auctionChat.SendMessageTo(singleMessageListener.SniperJid, priceMsg);
         }
 

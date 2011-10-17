@@ -17,6 +17,10 @@ namespace AuctionSniper.Domain
             this.currencyCode = currencyCode;
         }
 
+        public decimal Amount {
+            get { return this.amount; }
+        }
+
         public override string ToString() {
             return string.Format("Amount: {0}{1}", amount, currencyCode);
         }
