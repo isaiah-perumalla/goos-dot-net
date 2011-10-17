@@ -43,11 +43,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuctionMessageTranslator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XmppChatClient.cs" />
     <Compile Include="XmppException.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AuctionSniper.Domain\AuctionSniper.Domain.csproj">
+      <Project>{149D367F-9376-4622-BEE2-F512753DFDB1}</Project>
+      <Name>AuctionSniper.Domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AuctionSniper.Utils\AuctionSniper.Utils.csproj">
       <Project>{B3FE1494-8B04-4919-879A-F64EAB6E6214}</Project>
       <Name>AuctionSniper.Utils</Name>

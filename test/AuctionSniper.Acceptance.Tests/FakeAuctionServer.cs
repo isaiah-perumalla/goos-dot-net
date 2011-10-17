@@ -39,7 +39,7 @@ namespace AuctionSniper.Acceptance.Tests {
 
         public void announceClosed() {
          
-            auctionChat.SendMessageTo(singleMessageListener.SniperJid, string.Empty);
+            auctionChat.SendMessageTo(singleMessageListener.SniperJid, @"SOLVersion: 1.1; Event: CLOSE;");
             auctionChat.Close();
         }
 

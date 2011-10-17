@@ -34,8 +34,8 @@
     <Reference Include="agsXMPP">
       <HintPath>..\lib\agsXmpp\agsXMPP.dll</HintPath>
     </Reference>
-    <Reference Include="NMock2">
-      <HintPath>..\lib\nmock2\NMock2.dll</HintPath>
+    <Reference Include="NMock3">
+      <HintPath>..\..\lib\NMock3\NMock3.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\lib\nunit-2.5\bin\net-2.0\nunit.framework.dll</HintPath>
@@ -49,8 +49,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AuctionMessageTranslatorTest.cs" />
+    <Compile Include="Xmpp\AuctionMessageTranslatorTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\AuctionSniper.Domain\AuctionSniper.Domain.csproj">
+      <Project>{149D367F-9376-4622-BEE2-F512753DFDB1}</Project>
+      <Name>AuctionSniper.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\src\AuctionSniper.Xmpp\AuctionSniper.Xmpp.csproj">
+      <Project>{53731E54-EE01-48EA-A5FA-32AAD1107460}</Project>
+      <Name>AuctionSniper.Xmpp</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

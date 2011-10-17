@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using agsXMPP;
 using AuctionSniper.Utils;
 using AuctionSniper.Xmpp;
@@ -63,7 +64,8 @@ namespace AuctionSniper.Integration.Tests.Xmpp
             
             chatClient2.SendMessageTo(testuser, "hello");
 
-            Assert.That(messageReceivedEvent.WaitOne(2.Seconds()));
+            TimeSpan timeout = 4.Seconds();
+            Assert.That(messageReceivedEvent.WaitOne(timeout), "Did not receive message within {0}",timeout );
             Assert.That(message, Is.EqualTo("hello"));
 
         }

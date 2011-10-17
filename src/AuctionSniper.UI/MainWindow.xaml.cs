@@ -13,6 +13,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using agsXMPP;
 using agsXMPP.protocol.client;
+using AuctionSniper.Domain;
 using AuctionSniper.Xmpp;
 
 namespace AuctionSniper.UI
@@ -20,8 +21,7 @@ namespace AuctionSniper.UI
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
-    {
+    public partial class MainWindow : Window, IAuctionEventListener {
         private string XMPP_HOST = "localhost";
         private string RESOURCE = "resource";
         private XmppChatClient xmppClient;
@@ -31,10 +31,8 @@ namespace AuctionSniper.UI
         {
             InitializeComponent();
             xmppClient = new XmppChatClient(new Jid("sniper", XMPP_HOST, RESOURCE));
-            xmppClient.OnChatMessageReceived += (s, msg) => {
-                                                Action action = () => statusLbl.Content = "lost"; 
-                                                this.statusLbl.Dispatcher.Invoke(action);
-                                            };
+            var auctionMessageTranslator = new AuctionMessageTranslator(this);
+            xmppClient.OnChatMessageReceived += (s, msg) => auctionMessageTranslator.Process(msg);
             xmppClient.Login(sniper_password);
             
         }
@@ -50,6 +48,16 @@ namespace AuctionSniper.UI
             {
                 statusLbl.Content = ex.Message;
             }
+        }
+
+        public void AuctionClosed() {
+
+            Action action = () => statusLbl.Content = "lost";
+            this.statusLbl.Dispatcher.Invoke(action);
+        }
+
+        public void CurrentPrice(Money currentPrice, Money increment) {
+            
         }
     }
 }

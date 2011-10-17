@@ -97,6 +97,10 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AuctionSniper.Domain\AuctionSniper.Domain.csproj">
+      <Project>{149D367F-9376-4622-BEE2-F512753DFDB1}</Project>
+      <Name>AuctionSniper.Domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AuctionSniper.Xmpp\AuctionSniper.Xmpp.csproj">
       <Project>{53731E54-EE01-48EA-A5FA-32AAD1107460}</Project>
       <Name>AuctionSniper.Xmpp</Name>
