@@ -31,18 +31,28 @@ namespace AuctionSniper.UI
         {
             InitializeComponent();
             xmppClient = new XmppChatClient(new Jid("sniper", XMPP_HOST, RESOURCE));
-            var auctionMessageTranslator = new AuctionMessageTranslator(new Domain.AuctionSniper(this, null));
-            xmppClient.OnChatMessageReceived += (s, msg) => auctionMessageTranslator.Process(msg);
-            xmppClient.Login(sniper_password);
+            
             
         }
 
         private void join_auction_cliked(object sender, RoutedEventArgs e) {
             try
             {
-                
-                xmppClient.SendMessageTo(new Jid(auctionIdTxt.Text, XMPP_HOST, RESOURCE), string.Empty);
+
+               /* var fake = new XmppChatClient(new Jid("item-54321", "localhost", "auction"));
+                fake.Login("auction");*/
+                xmppClient.Login(sniper_password);
+                var itemJid = new Jid(auctionIdTxt.Text, XMPP_HOST, RESOURCE);
+                IAuction auction = new XmppAuction(xmppClient, itemJid);
+                var auctionMessageTranslator = new AuctionMessageTranslator(new Domain.AuctionSniper(this, auction));
+                xmppClient.OnChatMessageReceived += (s, msg) => auctionMessageTranslator.Process(msg);
+
+                xmppClient.SendMessageTo(itemJid, "SOLVersion: 1.1; Command: JOIN;");
                 this.statusLbl.Content = "joining";
+//                var message = string.Format(@"SOLVersion: 1.1; Event: PRICE; CurrentPrice: {0}; Increment: {1}; Bidder: {2};",
+//                                            100m, 20m, "some one else");
+                
+//                fake.SendMessageTo(new Jid("sniper", XMPP_HOST, RESOURCE), message);
             }
             catch(XmppException ex)
             {
@@ -57,7 +67,27 @@ namespace AuctionSniper.UI
         }
 
         public void SniperIsBidding() {
-            
+            Action action = () => statusLbl.Content = "bidding";
+            this.statusLbl.Dispatcher.Invoke(action);
+        }
+    }
+
+    public class XmppAuction : IAuction {
+        private readonly XmppChatClient xmppClient;
+        private readonly Jid itemJid;
+
+        public XmppAuction(XmppChatClient xmppClient, Jid itemJid) {
+            this.xmppClient = xmppClient;
+            this.itemJid = itemJid;
+
+        }
+
+        public void Bid(Money bidAmount) {
+            xmppClient.SendMessageTo(itemJid, BidFor(bidAmount));
+        }
+
+        private string BidFor(Money money) {
+            return string.Format("SOLVersion: 1.1; Command: BID; Price: {0};", money.Amount);
         }
     }
 }

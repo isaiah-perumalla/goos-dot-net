@@ -16,6 +16,7 @@ namespace AuctionSniper.Xmpp {
             conn = CreateXmppConnection(jid.Server);
             OnChatMessageReceived += delegate { };
             this.jid = jid;
+          
             
         }
 
@@ -28,7 +29,9 @@ namespace AuctionSniper.Xmpp {
             connection.OnLogin += o => hasLoggedIn.Set();
             connection.OnMessage += (sender, msg) => { 
                                                         if( MessageType.chat.Equals(msg.Type)) 
-                                                            OnChatMessageReceived(sender, msg); 
+                                                            OnChatMessageReceived(sender, msg);
+                                                        if (MessageType.error.Equals(msg.Type))
+                                                            OnErrorMessagedReceived(sender, msg);
                                                       };
             connection.OnAuthError += (o, e) => error =  ExceptionWithMsg(string.Format("Auth error {0}",e.ToString()));
             connection.OnSocketError += (o,e) => error = ExceptionWithMsg(string.Format("socket error {0}",e.ToString()));
@@ -37,13 +40,21 @@ namespace AuctionSniper.Xmpp {
 
         }
 
+        private void OnErrorMessagedReceived(object sender, Message msg) {
+            Console.WriteLine(msg.ToString());
+        }
+
         private XmppException ExceptionWithMsg(string message) {
+            Console.WriteLine(message.ToString());
             return new XmppException(message);
         }
 
         public void Login(string password) {
-          
-            conn.Open(jid.User, password, jid.Resource);
+
+            if (conn.XmppConnectionState == XmppConnectionState.Disconnected)
+            {
+                conn.Open(jid.User, password, jid.Resource);
+            }
             if (!hasLoggedIn.WaitOne(3.Seconds())) throw error;
         }
 

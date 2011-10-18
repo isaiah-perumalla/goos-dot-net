@@ -6,6 +6,7 @@ using AuctionSniper.Domain;
 using AuctionSniper.Utils;
 using AuctionSniper.Xmpp;
 using NUnit.Framework;
+using NUnit.Framework.Constraints;
 
 namespace AuctionSniper.Acceptance.Tests {
     public class FakeAuctionServer {
@@ -13,6 +14,8 @@ namespace AuctionSniper.Acceptance.Tests {
         private XmppChatClient auctionChat;
         private string AUCTION_PASSWORD = "auction";
         private SingleMessageListener singleMessageListener = new SingleMessageListener();
+        private const string BID_COMMAND = "SOLVersion: 1.1; Command: BID; Price: {0};";
+        private const string JOIN_COMMAND = "SOLVersion: 1.1; Command: JOIN;";
         private const string RESOURCE = "auction";
         private const string XMPP_HOST = "localhost";
 
@@ -35,7 +38,8 @@ namespace AuctionSniper.Acceptance.Tests {
         }
 
         public void HasReceivedJoinRequestFrom(string xmppId) {
-            singleMessageListener.ReceivesAMessageFrom(xmppId);
+            object join_message;
+            singleMessageListener.ReceivesAMessageFrom(xmppId, Is.EqualTo(JOIN_COMMAND), "did not receive join message");
         }
 
         public void AnnounceClosed() {
@@ -50,13 +54,14 @@ namespace AuctionSniper.Acceptance.Tests {
 
         public void ReportPrice(Money price, Money increment, string bidderId) {
             var priceMsg =
-                string.Format(@"SOLVersion: 1.1; Event: Price; CurrentPrice: {0}; Increment: {1}; Bidder: {2};",
+                string.Format(@"SOLVersion: 1.1; Event: PRICE; CurrentPrice: {0}; Increment: {1}; Bidder: {2};",
                               price.Amount, increment.Amount, bidderId);
             auctionChat.SendMessageTo(singleMessageListener.SniperJid, priceMsg);
         }
 
         public void HasReceivedBid(decimal price, string sniperId) {
-            
+            string bid_message = string.Format(BID_COMMAND, price);
+            singleMessageListener.ReceivesAMessageFrom(sniperId, Is.EqualTo(bid_message), "did not receive bid message");
         }
     }
 
@@ -69,11 +74,12 @@ namespace AuctionSniper.Acceptance.Tests {
             messages.Add(msg);
         }
 
-        public void ReceivesAMessageFrom(string sniperXmppId) {
+        public void ReceivesAMessageFrom(string sniperXmppId, Constraint constraint, string message) {
             Message msg;
-            TimeSpan timeout = 2.Seconds();
+            TimeSpan timeout = 4.Seconds();
             Assert.That(messages.TryTake(out msg, timeout), String.Format("did not receive message from sniper within {0} seconds", timeout));
             Assert.That(msg.From.User, Is.EqualTo(sniperXmppId), "message was not from {0}", sniperXmppId);
+            Assert.That(msg.Body, constraint, message);
             SniperJid = msg.From;
         }
     }
