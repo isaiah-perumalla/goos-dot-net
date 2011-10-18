@@ -2,5 +2,6 @@
     public interface IAuction
     {
         void Bid(Money bidAmount);
+        void Join();
     }
 }

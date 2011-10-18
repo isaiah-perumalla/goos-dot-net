@@ -22,7 +22,7 @@ namespace AuctionSniper.Acceptance.Tests {
         public FakeAuctionServer(string auctionItemId) {
             _auctionItemId = auctionItemId;
 
-            auctionChat = new XmppChatClient(new Jid(_auctionItemId, XMPP_HOST, RESOURCE));
+            auctionChat = new XmppChatClient(new Jid(_auctionItemId, XMPP_HOST, RESOURCE), AUCTION_PASSWORD);
             auctionChat.OnChatMessageReceived += (s, msg) => singleMessageListener.ProcessMessage(msg);
         }
 
@@ -34,7 +34,7 @@ namespace AuctionSniper.Acceptance.Tests {
 
         public void StartSellingItem() {
             
-            auctionChat.Login(AUCTION_PASSWORD);
+            auctionChat.Login();
         }
 
         public void HasReceivedJoinRequestFrom(string xmppId) {

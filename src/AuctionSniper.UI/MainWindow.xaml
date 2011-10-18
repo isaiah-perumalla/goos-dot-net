@@ -5,8 +5,8 @@
         AutomationProperties.AutomationId="mainwindow">
     <StackPanel Orientation="Vertical">
         <Label AutomationProperties.AutomationId="auction_status"  Name="statusLbl"
-               Content="lost"/>
-        <Button Content="join" AutomationProperties.AutomationId="join_button" Click="join_auction_cliked" />
-        <TextBox Name="auctionIdTxt" AutomationProperties.AutomationId="auctionid_txtbox" />
+               Content="{Binding Status}"/>
+        <Button Content="join" AutomationProperties.AutomationId="join_button" Command="{Binding JoinCommand}" />
+        <TextBox Name="auctionIdTxt" Text="{Binding ItemId}" AutomationProperties.AutomationId="auctionid_txtbox" />
     </StackPanel>
 </Window>

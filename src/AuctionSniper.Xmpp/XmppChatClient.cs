@@ -10,14 +10,14 @@ namespace AuctionSniper.Xmpp {
         private XmppException error = new XmppException("timed out");
         private readonly ManualResetEvent hasLoggedIn = new ManualResetEvent(false);
         private Jid jid;
+        private readonly string password;
         public event MessageHandler OnChatMessageReceived ;
 
-        public XmppChatClient(Jid jid) {
+        public XmppChatClient(Jid jid, string password) {
             conn = CreateXmppConnection(jid.Server);
             OnChatMessageReceived += delegate { };
             this.jid = jid;
-          
-            
+            this.password = password;
         }
 
         private XmppClientConnection CreateXmppConnection(string xmppHost) {
@@ -49,11 +49,11 @@ namespace AuctionSniper.Xmpp {
             return new XmppException(message);
         }
 
-        public void Login(string password) {
+        public void Login() {
 
             if (conn.XmppConnectionState == XmppConnectionState.Disconnected)
             {
-                conn.Open(jid.User, password, jid.Resource);
+                conn.Open(jid.User, this.password, jid.Resource);
             }
             if (!hasLoggedIn.WaitOne(3.Seconds())) throw error;
         }
