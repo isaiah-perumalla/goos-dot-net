@@ -2,11 +2,12 @@
 using AuctionSniper.Domain;
 
 namespace AuctionSniper.Xmpp {
+
     public class XmppAuction : IAuction {
-        private const string JOIN_COMMAND = "SOLVersion: 1.1; Command: JOIN;";
-        private const string BID_COMMAND = "SOLVersion: 1.1; Command: BID; Price: {0};";
-        private readonly XmppChatClient xmppClient;
-        private readonly Jid itemJid;
+        const string JOIN_COMMAND = "SOLVersion: 1.1; Command: JOIN;";
+        const string BID_COMMAND = "SOLVersion: 1.1; Command: BID; Price: {0};";
+        readonly XmppChatClient xmppClient;
+        readonly Jid itemJid;
 
         public XmppAuction(XmppChatClient xmppClient, Jid itemJid) {
             this.xmppClient = xmppClient;
@@ -22,7 +23,7 @@ namespace AuctionSniper.Xmpp {
             xmppClient.SendMessageTo(itemJid, JOIN_COMMAND);
         }
 
-        private static string BidFor(Money money) {
+        static string BidFor(Money money) {
             return string.Format(BID_COMMAND, money.Amount);
         }
     }

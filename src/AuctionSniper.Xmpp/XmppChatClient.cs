@@ -9,7 +9,7 @@ namespace AuctionSniper.Xmpp {
         private readonly XmppClientConnection conn;
         private XmppException error = new XmppException("timed out");
         private readonly ManualResetEvent hasLoggedIn = new ManualResetEvent(false);
-        private Jid jid;
+        private readonly Jid jid;
         private readonly string password;
         public event MessageHandler OnChatMessageReceived ;
 

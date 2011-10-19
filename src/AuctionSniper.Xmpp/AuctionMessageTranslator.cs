@@ -17,25 +17,60 @@ namespace AuctionSniper.Xmpp
         }
 
         public void Process(Message message) {
-            var msgMap = Unpack(message.Body);
-            var auctionEvent = msgMap["Event"];
-            if("CLOSE".Equals(auctionEvent))
+            var auctionEvent = AuctionEvent.From(message.Body);
+            var eventType = auctionEvent.EventType;
+            if("CLOSE".Equals(eventType))
                 auctionEventListener.AuctionClosed();
-            else if("PRICE".Equals(auctionEvent))
+            else if("PRICE".Equals(eventType))
             {
-                var currentPrice = msgMap["CurrentPrice"].AsMoney(defaultCurrency);
-                var increment = msgMap["Increment"].AsMoney(defaultCurrency);
+                var currentPrice = auctionEvent.CurrentPrice;
+                var increment = auctionEvent.Increment;
                 auctionEventListener.CurrentPrice(currentPrice, increment);
 
             }
         }
 
-        private static Dictionary<string , string> Unpack(string body) {
-            var messageComponents = body.Split(new[] {';'});
-            var auctionEventMap = messageComponents.Select(msgComponent => msgComponent.Split(new[] {':'}))
-                                                   .Where(pair => pair.Length == 2)
-                                                   .ToDictionary(pair => pair[0].Trim(), pair => pair[1].Trim());
-            return auctionEventMap;
+        class AuctionEvent {
+            private readonly Dictionary<string, string> eventValues;
+
+            AuctionEvent(string message) {
+                this.eventValues = Unpack(message);
+            }
+
+            public string EventType { get { return eventValues["Event"]; }}
+
+            public Money CurrentPrice {
+                get { return eventValues["CurrentPrice"].AsMoney(defaultCurrency);
+                }
+            }
+            public Money Increment {
+                get
+                {
+                    return eventValues["Increment"].AsMoney(defaultCurrency); ;
+                }
+            }
+
+            private static Dictionary<string, string> Unpack(string body)
+            {
+                var fields = FieldsIn(body);
+                var auctionEventMap = fields.Select(KeyValuePair)
+                                            .Where(pair => pair.Length == 2)
+                                            .ToDictionary(pair => pair[0].Trim(), pair => pair[1].Trim());
+                return auctionEventMap;
+            }
+
+            private static string[] KeyValuePair(string field) {
+                return field.Split(new[] {':'});
+            }
+
+            private static IEnumerable<string> FieldsIn(string body) {
+                return body.Split(new[] { ';' });
+            }
+
+            public static AuctionEvent From(string message) {
+                return new AuctionEvent(message);
+            }
         }
+
     }
 }
