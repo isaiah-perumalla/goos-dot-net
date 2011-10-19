@@ -15,6 +15,8 @@ namespace AuctionSniper.Acceptance.Tests {
         private readonly Application applicationInstance;
         private const string LOST_AUCTION = "lost";
         private Window _mainwindow;
+        const string WON_AUCTION = "won";
+        const string WINNING = "winning";
         const string BIDDING = "bidding";
         public const string SniperXmppID = "sniper";
         const string JOINING = "joining";
@@ -55,7 +57,11 @@ namespace AuctionSniper.Acceptance.Tests {
         }
 
         public void ShowsSniperHasLostAuction() {
-            WaitUntil(() => Status.Text, Is.EqualTo(LOST_AUCTION), 3.Seconds(), "Auction status lost");
+            AssertStatusEquals(LOST_AUCTION, "Auction status lost");
+        }
+
+        private void AssertStatusEquals(string status, string message) {
+            WaitUntil(() => Status.Text, Is.EqualTo(status), 3.Seconds(), message);
         }
 
         public void Dispose() {
@@ -63,8 +69,15 @@ namespace AuctionSniper.Acceptance.Tests {
         }
 
         public void HasShownSniperIsBidding() {
-            WaitUntil(() => Status.Text, Is.EqualTo(BIDDING), 3.Seconds(), "Auction status lost");
+            AssertStatusEquals(BIDDING, "Auction status lost");
+        }
 
+        public void HasShownSniperIsWinning() {
+            AssertStatusEquals(WINNING, "Auction status lost");
+        }
+
+        public void ShowsSniperHasWonAuction() {
+            AssertStatusEquals(WON_AUCTION, "auction won");
         }
     }
 }

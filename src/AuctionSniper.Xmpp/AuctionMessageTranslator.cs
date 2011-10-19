@@ -8,7 +8,7 @@ namespace AuctionSniper.Xmpp
 {
     public class AuctionMessageTranslator
     {
-        private const string defaultCurrency = "GBP";
+        private const string DefaultCurrency = "GBP";
         private readonly IAuctionEventListener auctionEventListener;
 
         public AuctionMessageTranslator(IAuctionEventListener auctionEventListener)
@@ -40,13 +40,13 @@ namespace AuctionSniper.Xmpp
             public string EventType { get { return eventValues["Event"]; }}
 
             public Money CurrentPrice {
-                get { return eventValues["CurrentPrice"].AsMoney(defaultCurrency);
+                get { return eventValues["CurrentPrice"].AsMoney(DefaultCurrency);
                 }
             }
             public Money Increment {
                 get
                 {
-                    return eventValues["Increment"].AsMoney(defaultCurrency); ;
+                    return eventValues["Increment"].AsMoney(DefaultCurrency); ;
                 }
             }
 
