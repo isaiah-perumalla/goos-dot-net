@@ -59,8 +59,8 @@ namespace AuctionSniper.Acceptance.Tests {
             auctionChat.SendMessageTo(singleMessageListener.SniperJid, priceMsg);
         }
 
-        public void HasReceivedBid(decimal price, string sniperId) {
-            string bid_message = string.Format(BID_COMMAND, price);
+        public void HasReceivedBid(Money price, string sniperId) {
+            string bid_message = string.Format(BID_COMMAND, price.Amount);
             singleMessageListener.ReceivesAMessageFrom(sniperId, Is.EqualTo(bid_message), "did not receive bid message");
         }
     }

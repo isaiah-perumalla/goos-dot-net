@@ -41,7 +41,7 @@ namespace AuctionSniper.Acceptance.Tests {
 
             auction.ReportPrice(1000.Gbp(), 98.Gbp(), "other bidder");
             application.HasShownSniperIsBidding();
-            auction.HasReceivedBid(1098, ApplicationRunner.SniperXmppID);
+            auction.HasReceivedBid(1098.Gbp(), ApplicationRunner.SniperXmppID);
             
             
             auction.AnnounceClosed();
@@ -57,7 +57,7 @@ namespace AuctionSniper.Acceptance.Tests {
 
             auction.ReportPrice(1000.Gbp(), 98.Gbp(), "other bidder");
             application.HasShownSniperIsBidding();
-            auction.HasReceivedBid(1098, ApplicationRunner.SniperXmppID);
+            auction.HasReceivedBid(1098.Gbp(), ApplicationRunner.SniperXmppID);
             auction.ReportPrice(1098.Gbp(), 97.Gbp(), ApplicationRunner.SniperXmppID);
 
             application.HasShownSniperIsWinning();
