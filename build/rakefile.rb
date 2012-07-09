@@ -5,7 +5,7 @@ PRODUCT = "AuctionSniper"
 CLR_VERSION = 'v4.0.30319'
 MSBUILD_DIR = File.join(ENV['windir'].dup, 'Microsoft.NET', 'Framework', CLR_VERSION)
 
-NUNIT_DIR = '../lib/nunit-2.5/bin/net-2.0/'
+NUNIT_DIR = '../lib/nunit-2.6/bin/'
 
 @nunitRunner = NUnitRunner.new :compile => COMPILE_TARGET, :nunit_dir => NUNIT_DIR
 
