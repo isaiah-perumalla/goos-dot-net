@@ -1,0 +1,13 @@
+xmpp setup
+
+add entry in host file for localhost
+set open fire domain name to localhost
+
+add the following users
+(username, password)
+sniper, sniper
+testuser, pass
+auction-item1, auction
+
+
+build end-to-end tests targeted for x86 (it must run as a 32-bit process for white to work properly)

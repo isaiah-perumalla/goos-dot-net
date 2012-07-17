@@ -35,7 +35,7 @@ namespace AuctionSniper.Acceptance.Tests {
             var auctionIdTextbox = _mainwindow.Get<TextBox>(SearchCriteria.ByAutomationId("auctionid_txtbox"));
             auctionIdTextbox.Text = auction.AuctionId;
             joinAuctionButton.Click();
-            WaitUntil(()=> Status.Text, Is.EqualTo(JOINING), 3.Seconds(), "Auction status");
+            WaitUntil(()=> Status.Text, Is.EqualTo(JOINING), 5.Seconds(), "Auction status");
 
         }
 
@@ -61,7 +61,7 @@ namespace AuctionSniper.Acceptance.Tests {
         }
 
         private void AssertStatusEquals(string status, string message) {
-            WaitUntil(() => Status.Text, Is.EqualTo(status), 3.Seconds(), message);
+            WaitUntil(() => Status.Text, Is.EqualTo(status), 5.Seconds(), message);
         }
 
         public void Dispose() {

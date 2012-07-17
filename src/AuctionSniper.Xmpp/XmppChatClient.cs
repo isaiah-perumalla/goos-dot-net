@@ -55,7 +55,7 @@ namespace AuctionSniper.Xmpp {
             {
                 conn.Open(jid.User, this.password, jid.Resource);
             }
-            if (!hasLoggedIn.WaitOne(3.Seconds())) throw error;
+            if (!hasLoggedIn.WaitOne(5.Seconds())) throw error;
         }
 
         public void SendMessageTo(Jid to, string message) {
